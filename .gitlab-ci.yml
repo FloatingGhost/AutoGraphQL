@@ -1,0 +1,6 @@
+test:
+  image: python:3.6.6-alpine
+  before_script:
+  - pip install -r REQUIREMENTS.txt
+  script:
+  - python3 -m pytest
