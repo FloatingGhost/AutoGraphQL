@@ -4,6 +4,7 @@ import sys
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 import pytest
+import json
 
 
 @pytest.fixture
@@ -27,6 +28,10 @@ def test_db_creation():
 def test_schema_generation():
     schema = make_schema("sqlite:///test.db", ["parent"])
     return schema
+
+
+def dictionary_equal(a, b):
+    return json.dumps(a, sort_keys=True) == json.dumps(b, sort_keys=True)
 
 
 def test_schema_top_level(db_connection, schema):
@@ -187,7 +192,7 @@ def test_many_to_many(db_connection, schema):
     } 
 
     data = schema.execute(query, context={"session": db_connection}).data
-    assert(dict(data) == expected_result)
+    assert dictionary_equal(expected_result, data)
     
 
 def test_remove_db():
