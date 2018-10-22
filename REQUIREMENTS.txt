@@ -4,3 +4,4 @@ flask_graphql
 mysqlclient
 sqlalchemy
 graphene-sqlalchemy
+pytest
