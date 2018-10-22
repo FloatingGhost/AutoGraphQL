@@ -30,10 +30,6 @@ def test_schema_generation():
     return schema
 
 
-def dictionary_equal(a, b):
-    return json.dumps(a, sort_keys=True) == json.dumps(b, sort_keys=True)
-
-
 def test_schema_top_level(db_connection, schema):
     query = """
     query {
@@ -192,7 +188,7 @@ def test_many_to_many(db_connection, schema):
     } 
 
     data = schema.execute(query, context={"session": db_connection}).data
-    assert dictionary_equal(expected_result, data)
+    assert expected_result == data
     
 
 def test_remove_db():
